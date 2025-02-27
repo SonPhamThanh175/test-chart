@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { createChart, IChartApi, UTCTimestamp, HistogramSeries } from "lightweight-charts";
+import { createChart, IChartApi, UTCTimestamp, ISeriesApi } from "lightweight-charts";
 import { GetCandles } from "../api/api";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -13,7 +13,7 @@ const VolumeChart: React.FC<VolumeChartProps> = ({ currentCoin, timeFrame }) => 
   const { theme } = useTheme();
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
-  const volumeSeriesRef = useRef<HistogramSeries | null>(null);
+  const volumeSeriesRef = useRef<ISeriesApi<"Histogram"> | null>(null);
 
   useEffect(() => {
     if (!chartContainerRef.current) return;
@@ -32,7 +32,6 @@ const VolumeChart: React.FC<VolumeChartProps> = ({ currentCoin, timeFrame }) => 
       rightPriceScale: {
         borderColor: theme === "dark" ? "#444" : "#e0e0e0",
         scaleMargins: { top: 0.2, bottom: 0.2 },
-        title: "Volume", 
       },
     });
 

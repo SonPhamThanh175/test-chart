@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { createChart, IChartApi, UTCTimestamp, CandlestickSeries } from "lightweight-charts";
+import { createChart, IChartApi, UTCTimestamp, ISeriesApi } from "lightweight-charts";
 import { GetCandles } from "../api/api";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -13,7 +13,7 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ currentCoin, timeFr
   const { theme } = useTheme();
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
-  const candleSeriesRef = useRef<CandlestickSeries | null>(null);
+  const candleSeriesRef = useRef<ISeriesApi<"Candlestick"> | null>(null);
 
   useEffect(() => {
     if (!chartContainerRef.current) return;
@@ -63,7 +63,7 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ currentCoin, timeFr
           close: latestCandle.close,
         });
       }
-    }, 3000); 
+    }, 3000);
 
     return () => {
       clearInterval(interval);
